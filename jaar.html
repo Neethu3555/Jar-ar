@@ -2,15 +2,23 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Import A-Frame and MindAR Libraries -->
+    
+    <!-- Core A-Frame & MindAR Libraries -->
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    
+    <!-- Added: Required component library for parsing glTF/GLB models -->
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+
     <style>
-      body { margin: 0; overflow: hidden; }
+      body { 
+        margin: 0; 
+        overflow: hidden; 
+      }
     </style>
   </head>
   <body>
-    <!-- AR Scene setup referencing your .mind target file -->
+    <!-- AR Scene setup pointing to your compiled target file -->
     <a-scene 
       mindar-image="imageTargetSrc: ./targets.mind;" 
       color-space="sRGB" 
@@ -19,21 +27,21 @@
       device-orientation-permission-ui="enabled: false">
       
       <a-assets>
-        <!-- Load your 3D sweets model -->
+        <!-- Load your 3D jar/sweets model -->
         <a-asset-item id="sweetsModel" src="./jar.glb"></a-asset-item>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <!-- Content anchored to the sugar packet when detected -->
+      <!-- Content anchored to the tracked target -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- Adjust scale, position, and rotation as needed -->
-        <a-gltf-model 
-          src="#sweetsModel" 
+        <!-- 3D Model entity declaration -->
+        <a-entity 
+          gltf-model="#sweetsModel" 
           position="0 0 0.1" 
-          scale="0.5 0.5 0.5" 
-          rotation="0 0 0">
-        </a-gltf-model>
+          scale="0.2 0.2 0.2" 
+          rotation="90 0 0">
+        </a-entity>
       </a-entity>
     </a-scene>
   </body>
